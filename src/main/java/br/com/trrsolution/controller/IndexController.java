@@ -4,29 +4,23 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.text.DateFormat;
 import java.time.Instant;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.TimeZone;
-
 import javax.servlet.ServletContext;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-
 import br.com.trrsolution.model.PathConfig;
 import br.com.trrsolution.model.War;
+import lombok.extern.slf4j.Slf4j;
 
-
+@Slf4j
 @RestController
 public class IndexController {
 	
@@ -38,11 +32,11 @@ public class IndexController {
 	@RequestMapping(value = "/get-wars", method = RequestMethod.GET)
 	public List<War> getWars(){
 			
-		List<War> wars_ = new ArrayList<>();
+		List<War> wars = new ArrayList<>();
 		
-		File[] wars = new File(pathConfigSaved.getWeblogicPath()+"\\servers\\AdminServer\\upload\\").listFiles();
+		File[] warsInFolder = new File(pathConfigSaved.getWeblogicPath()+"\\servers\\AdminServer\\upload\\").listFiles();
 		
-		for (File file : wars) {		
+		for (File file : warsInFolder) {		
 			
 			File warFile = new File(file.getAbsolutePath() + "\\app\\" + file.getName() + ".war");
 			
@@ -50,9 +44,9 @@ public class IndexController {
 			
 			DateTimeFormatter formatador = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");						
 			
-			wars_.add(new War(file.getName(), false, dateTime.format(formatador)));			
+			wars.add(new War(file.getName(), false, dateTime.format(formatador)));			
 		}
-		return wars_;
+		return wars;
 	}
 	
 	@RequestMapping(value="/post-paths", method=RequestMethod.POST)
@@ -91,9 +85,8 @@ public class IndexController {
 		
 		try {
 			
-			String exec = "cmd /C start "+ pathConfigSaved.getWeblogicPath() + "\\bin\\startWebLogic.cmd";
-			
-			Process process = Runtime.getRuntime().exec(exec,null);
+			String exec = "cmd /C start "+ pathConfigSaved.getWeblogicPath() + "\\bin\\startWebLogic.cmd";			
+			Runtime.getRuntime().exec(exec,null);
 			
 		} catch (IOException e) {			
 			e.printStackTrace();

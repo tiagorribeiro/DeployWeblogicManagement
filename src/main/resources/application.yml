@@ -1,0 +1,6 @@
+#Info
+info:
+  title: Deploy Weblogic Management
+  description: Service for deploy management in weblogic server
+server: 
+  port: 9090
