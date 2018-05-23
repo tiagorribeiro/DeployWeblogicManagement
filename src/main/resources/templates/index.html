@@ -1,0 +1,93 @@
+<!DOCTYPE HTML>
+
+<html>
+<head>
+	  <title>Spring Boot - Angularjs Example</title>
+	  <meta charset="utf-8" />
+	  <meta name="viewport" content="width=device-width, initial-scale=1" />
+	  
+	  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+	  <script src="/js/controller.js"></script>
+	  <script src="/vendor/angular-ui-notification/angular-ui-notification.min.js"></script> 
+	 
+	  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+	  <link rel="stylesheet" href="/vendor/angular-ui-notification/angular-ui-notification.min.css"/>
+</head>
+<body>
+
+<div class="container" ng-app="app">
+
+	<h3 style="color:blue"></h3>
+	
+	<div class="col-sm-offset-2 col-sm-10" ng-controller="formPathController">
+		<form class="form-horizontal" name="formPath" ng-submit="submitForm()">
+			<div class="form-group">
+				<label class="control-label col-sm-2" for="firstnameID">Weblogic Path:</label>
+				<div class="col-sm-5">
+					<input type="text" class="form-control" name="weblogicPath" placeholder="" ng-model="weblogicPath"/>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-sm-2" for="lastnameID">Project Path:</label>
+				<div class="col-sm-5">
+					<input type="text" class="form-control" name="gitPath" placeholder="" ng-model="gitPath"/>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-sm-offset-2 col-sm-10">
+					<button type="submit" class="btn btn-default">Submit</button>
+				</div>
+			</div>
+		</form>
+		
+		<div class="col-sm-offset-2 col-sm-10">
+			<p>{{postResultMessage}}</p>
+		</div>
+	</div>
+
+	<!--***************************************************************************-->
+	
+	<div class="col-sm-offset-2 col-sm-5" ng-controller="formListController">
+		<form name="customerForm" ng-submit="submitForm()">		
+		
+			<button type="button" class="btn btn-primary" ng-click="getfunction()">Get All</button>
+
+			<button type="submit" class="btn btn-default" ng-if="wars.length > 0">Deploy</button>
+		
+			<div class="panel panel-default" ng-if="wars.length > 0">
+					
+				<div class="panel-heading">
+					WARs
+				</div>
+				
+				<div class="panel-body">
+					<table class="table table-hover table-striped table-border-all">
+						<thead>
+							<tr>
+								<th>Service Name</th>
+								<th>Last Deploy</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="f in wars">
+								<td>
+									<div class="checkbox checkbox-bt">
+										<label>
+											<input type="checkbox" ng-model="f.checked">{{f.serviceName}}</input>
+										</label>
+									</div>
+								</td>
+								<td class="text-center">
+									<span class="label label-info">{{f.lastModified}}</span>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			
+		</form>
+	</div>
+</div>
+</body>
+</html>
