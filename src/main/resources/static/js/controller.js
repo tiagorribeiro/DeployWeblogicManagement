@@ -10,7 +10,7 @@ var app = angular.module('app', deps)
 			horizontalSpacing: 10,
 			positionX: 'right',
 			positionY: 'top'
-	})});
+})});
 
 app.controller('formPathController', function($scope, $http, $location, Notification){
 	$scope.submitForm = function(){
@@ -28,7 +28,7 @@ app.controller('formPathController', function($scope, $http, $location, Notifica
 		
 		$http.post(url, data, config).then(function (response) {
 			$scope.postResultMessage = response.data;
-			Notification.success("PATHs salvo com sucesso");
+			//Notification.success("PATHs salvo com sucesso");
 		}, function error(response) {
 			$scope.postResultMessage = "Error with status: " +  response.statusText;
 		});
@@ -45,7 +45,7 @@ app.controller('formListController', function($scope, $http, $location, Notifica
 		
 		$http.get(url).then(function (response) {
 			$scope.wars = response.data;
-			Notification.success("WARs Listados com sucesso");
+			//Notification.success("WARs Listados com sucesso");
 		},
 		function error(response) {
 			$scope.postResultMessage = "Error with status: " +  response.statusText;
@@ -63,7 +63,7 @@ app.controller('formListController', function($scope, $http, $location, Notifica
 		}
 
 		$http.post(url, $scope.wars, config).then(function (response) {
-			Notification.success("Deploy realizado com sucesso, aguarde a inicialização do WEBLOGIC");
+			//Notification.success("Deploy realizado com sucesso, aguarde a inicialização do WEBLOGIC");
 		}, function error(response) {
 			$scope.postResultMessage = "Error with status: " +  response.statusText;
 		});
